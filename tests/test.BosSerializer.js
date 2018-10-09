@@ -413,11 +413,12 @@ describe('BosSerializer', function () {
 
                 try {
                     bosSerializer.serialize(a);
-                    assert.error('Circular reference exception expected');
                 }
                 catch (err) {
                     // success
+                    return;
                 }
+                assert.error('Circular reference exception expected');
             });
 
             it('should detect circular array reference', function () {
@@ -429,11 +430,12 @@ describe('BosSerializer', function () {
 
                 try {
                     bosSerializer.serialize(b);
-                    assert.error('Circular reference exception expected');
                 }
                 catch (err) {
                     // success
+                    return;
                 }
+                assert.error('Circular reference exception expected');
             });
         });
     });

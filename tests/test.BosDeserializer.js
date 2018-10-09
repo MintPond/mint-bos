@@ -91,10 +91,11 @@ describe('BosDeserializer', function () {
 
     describe('deserialize function result', function () {
 
+        var serialized;
         var result;
 
         before(function () {
-            var serialized = bosSerializer.serialize({
+            serialized = bosSerializer.serialize({
                 replyId: 1,
                 bool: true,
                 int8: -1,
@@ -115,6 +116,30 @@ describe('BosDeserializer', function () {
                 }
             });
             result = bosDeserializer.deserialize(serialized);
+        });
+
+        it('should throw exception if data is incomplete', function () {
+
+            const incomplete = Buffer.alloc(serialized.length - 1);
+            serialized.copy(incomplete, 0);
+            try {
+                bosDeserializer.deserialize(incomplete);
+            } catch (e) {
+                // success
+                return;
+            }
+            assert.error('Incomplete buffer exception expected');
+        });
+
+        it ('should throw exception if data is larger than it should be', function () {
+            serialized[0] -= 1;
+            try {
+                bosDeserializer.deserialize(serialized);
+            } catch (e) {
+                // success
+                return;
+            }
+            assert.error('exception expected');
         });
 
         it('should be an object', function () {
