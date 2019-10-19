@@ -203,113 +203,113 @@ describe('BosSerializer', function () {
             });
             it('followed by value type', function () {
                 const dataType = result.readUInt8(86);
-                assert.equal(dataType, DataType.FLOAT);
+                assert.equal(dataType, DataType.DOUBLE);
             });
             it('and value', function () {
-                const value = result.readFloatLE(87);
+                const value = result.readDoubleLE(87);
                 assert.equal(value, 5.5);
             });
         });
 
         describe('followed by "string" key', function () {
             it('should have key name', function () {
-                const keyNameLen = result.readUInt8(91);
+                const keyNameLen = result.readUInt8(95);
                 assert.equal(keyNameLen, 6);
 
-                const keyName = result.toString('utf8', 92, 92 + 6);
+                const keyName = result.toString('utf8', 96, 96 + 6);
                 assert.equal(keyName, 'string');
             });
             it('followed by value type', function () {
-                const dataType = result.readUInt8(98);
+                const dataType = result.readUInt8(102);
                 assert.equal(dataType, DataType.STRING);
             });
             it('and value', function () {
-                const strLen = result.readUInt8(99);
+                const strLen = result.readUInt8(103);
                 assert.equal(strLen, 16);
 
-                const value = result.toString('utf8', 100, 100 + 16);
+                const value = result.toString('utf8', 104, 104 + 16);
                 assert.equal(value, 'this is a string');
             });
         });
 
         describe('followed by "bytes" key', function () {
             it('should have key name', function () {
-                const keyNameLen = result.readUInt8(116);
+                const keyNameLen = result.readUInt8(120);
                 assert.equal(keyNameLen, 5);
 
-                const keyName = result.toString('utf8', 117, 117 + 5);
+                const keyName = result.toString('utf8', 121, 121 + 5);
                 assert.equal(keyName, 'bytes');
             });
             it('followed by value type', function () {
-                const dataType = result.readUInt8(122);
+                const dataType = result.readUInt8(126);
                 assert.equal(dataType, DataType.BYTES);
             });
             it('and value', function () {
-                const len = result.readUInt8(123);
+                const len = result.readUInt8(127);
                 assert.equal(len, 2);
 
-                assert.equal(result[124], 1);
-                assert.equal(result[125], 1);
+                assert.equal(result[128], 1);
+                assert.equal(result[129], 1);
             });
         });
 
         describe('followed by "array" key', function () {
             it('should have key name', function () {
-                const keyNameLen = result.readUInt8(126);
+                const keyNameLen = result.readUInt8(130);
                 assert.equal(keyNameLen, 5);
 
-                const keyName = result.toString('utf8', 127, 127 + 5);
+                const keyName = result.toString('utf8', 131, 131 + 5);
                 assert.equal(keyName, 'array');
             });
             it('followed by value type', function () {
-                const dataType = result.readUInt8(132);
+                const dataType = result.readUInt8(136);
                 assert.equal(dataType, DataType.ARRAY);
             });
             it('followed by array length', function () {
-                const len = result.readUInt8(133);
+                const len = result.readUInt8(137);
                 assert.equal(len, 4);
             });
             describe('and array element 0', function () {
                 it('should have a data type', function () {
-                    const dataType = result.readUInt8(134);
+                    const dataType = result.readUInt8(138);
                     assert.equal(dataType, DataType.STRING);
                 });
                 it('and value', function () {
-                    const strLen = result.readUInt8(135);
+                    const strLen = result.readUInt8(139);
                     assert.equal(strLen, 6);
 
-                    const value = result.toString('utf8', 136, 136 + 6);
+                    const value = result.toString('utf8', 140, 140 + 6);
                     assert.equal(value, 'string');
                 });
             });
             describe('and array element 1', function () {
                 it('should have a data type', function () {
-                    const dataType = result.readUInt8(142);
+                    const dataType = result.readUInt8(146);
                     assert.equal(dataType, DataType.UINT8);
                 });
                 it('and value', function () {
-                    const value = result.readUInt8(143);
+                    const value = result.readUInt8(147);
                     assert.equal(value, 1);
                 });
             });
             describe('and array element 2', function () {
                 it('should have a data type', function () {
-                    const dataType = result.readUInt8(144);
-                    assert.equal(dataType, DataType.FLOAT);
+                    const dataType = result.readUInt8(148);
+                    assert.equal(dataType, DataType.DOUBLE);
                 });
                 it('and value', function () {
-                    const value = result.readFloatLE(145);
+                    const value = result.readDoubleLE(149);
                     assert.equal(
                         Math.round(value * 10000000) / 10000000, 2.2);
                 });
             });
             describe('and array element 3', function () {
                 it('should have a data type', function () {
-                    const dataType = result.readUInt8(149);
+                    const dataType = result.readUInt8(157);
                     assert.equal(dataType, DataType.BOOL);
                 });
                 it('and value', function () {
-                    const value = result.readUInt8(150);
+                    const value = result.readUInt8(158);
                     assert.equal(value, false);
                 });
             });
@@ -317,125 +317,91 @@ describe('BosSerializer', function () {
 
         describe('followed by "obj" key', function () {
             it('should have key name', function () {
-                const keyNameLen = result.readUInt8(151);
+                const keyNameLen = result.readUInt8(159);
                 assert.equal(keyNameLen, 3);
 
-                const keyName = result.toString('utf8', 152, 152 + 3);
+                const keyName = result.toString('utf8', 160, 160 + 3);
                 assert.equal(keyName, 'obj');
             });
             it('followed by value type', function () {
-                const dataType = result.readUInt8(155);
+                const dataType = result.readUInt8(163);
                 assert.equal(dataType, DataType.OBJ);
             });
             it('followed by key length', function () {
-                const len = result.readUInt8(156);
+                const len = result.readUInt8(164);
                 assert.equal(len, 4);
             });
             describe('obj "str" key', function () {
                 it('should have keyName', function () {
-                    const keyNameLen = result.readUInt8(157);
+                    const keyNameLen = result.readUInt8(165);
                     assert.equal(keyNameLen, 3);
 
-                    const keyName = result.toString('utf8', 158, 158 + 3);
+                    const keyName = result.toString('utf8', 166, 166 + 3);
                     assert.equal(keyName, 'str');
                 });
                 it('followed by value type', function () {
-                    const dataType = result.readUInt8(161);
+                    const dataType = result.readUInt8(169);
                     assert.equal(dataType, DataType.STRING);
                 });
                 it('and value', function () {
-                    const strLen = result.readUInt8(162);
+                    const strLen = result.readUInt8(170);
                     assert.equal(strLen, 3);
 
-                    const value = result.toString('utf8', 163, 163 + 3);
+                    const value = result.toString('utf8', 171, 171 + 3);
                     assert.equal(value, 'str');
                 });
             });
             describe('obj "int" key', function () {
                 it('should have keyName', function () {
-                    const keyNameLen = result.readUInt8(166);
+                    const keyNameLen = result.readUInt8(174);
                     assert.equal(keyNameLen, 3);
 
-                    const keyName = result.toString('utf8', 167, 167 + 3);
+                    const keyName = result.toString('utf8', 175, 175 + 3);
                     assert.equal(keyName, 'int');
                 });
                 it('followed by value type', function () {
-                    const dataType = result.readUInt8(170);
+                    const dataType = result.readUInt8(178);
                     assert.equal(dataType, DataType.UINT8);
                 });
                 it('and value', function () {
-                    const value = result.readUInt8(171);
+                    const value = result.readUInt8(179);
                     assert.equal(value, 2);
                 });
             });
             describe('obj "float" key', function () {
                 it('should have keyName', function () {
-                    const keyNameLen = result.readUInt8(172);
+                    const keyNameLen = result.readUInt8(180);
                     assert.equal(keyNameLen, 5);
 
-                    const keyName = result.toString('utf8', 173, 173 + 5);
+                    const keyName = result.toString('utf8', 181, 181 + 5);
                     assert.equal(keyName, 'float');
                 });
                 it('followed by value type', function () {
-                    const dataType = result.readUInt8(178);
-                    assert.equal(dataType, DataType.FLOAT);
+                    const dataType = result.readUInt8(186);
+                    assert.equal(dataType, DataType.DOUBLE);
                 });
                 it('and value', function () {
-                    const value = result.readFloatLE(179);
+                    const value = result.readDoubleLE(187);
                     assert.equal(
                         Math.round(value * 10000000) / 10000000, 2.3);
                 });
             });
             describe('obj "bool" key', function () {
                 it('should have keyName', function () {
-                    const keyNameLen = result.readUInt8(183);
+                    const keyNameLen = result.readUInt8(195);
                     assert.equal(keyNameLen, 4);
 
-                    const keyName = result.toString('utf8', 184, 184 + 4);
+                    const keyName = result.toString('utf8', 196, 196 + 4);
                     assert.equal(keyName, 'bool');
                 });
                 it('followed by value type', function () {
-                    const dataType = result.readUInt8(188);
+                    const dataType = result.readUInt8(200);
                     assert.equal(dataType, DataType.BOOL);
                 });
                 it('and value', function () {
-                    const value = result.readUInt8(189);
+                    const value = result.readUInt8(201);
                     assert.equal(value, true);
                 });
-            });
-        });
-
-        describe('serialize function circular references', function () {
-
-            it('should detect circular object reference', function () {
-                var a = {};
-                a.b = a;
-
-                try {
-                    bosSerializer.serialize(a);
-                }
-                catch (err) {
-                    // success
-                    return;
-                }
-                assert.error('Circular reference exception expected');
-            });
-
-            it('should detect circular array reference', function () {
-                var a = [];
-                var b = {
-                    c: a
-                };
-                a.push(b);
-
-                try {
-                    bosSerializer.serialize(b);
-                }
-                catch (err) {
-                    // success
-                    return;
-                }
-                assert.error('Circular reference exception expected');
             });
         });
     });
