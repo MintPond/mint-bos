@@ -4,7 +4,19 @@ BOS is a lightweight NodeJS object serializer meant to allow transport
 of JSON type data in binary format. It allows transporting large
 binary data more efficiently.
 
-__Serializer Usage__
+This module has been developed and tested on 
+[Node v10.16.3](https://nodejs.org/) and 
+[Ubuntu 16.04](http://releases.ubuntu.com/16.04/)
+
+## Install ##
+__Install as Dependency in NodeJS Project__
+```bash
+sudo apt-get install build-essential
+npm install git://github.com/MintPond/node-bos --save
+```
+
+## Usage ##
+__Serializer__
 ```js
 const bos = require('bos');
 
@@ -25,7 +37,7 @@ var obj = {
 var bufferData = bos.serialize(obj);
 ```
 
-__Deserializer Usage__
+__Deserializer__
 ```js
 const bos = require('bos');
 
