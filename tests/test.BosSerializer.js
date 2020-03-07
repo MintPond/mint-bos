@@ -3,9 +3,32 @@
 const
     assert = require('assert'),
     bosSerializer = require('../lib/service.bosSerializer'),
+    bosDeserializer = require('../lib/service.bosDeserializer'),
     DataType = require('../lib/const.DataType');
 
 describe('BosSerializer', function () {
+
+    it('should serialize correctly', function () {
+        const largeObj = {
+            str: 'string of data',
+            integer: 123,
+            float: 12.3
+        };
+        const element = JSON.parse(JSON.stringify(largeObj));
+        largeObj.array = [];
+        for (let i = 0; i < 50; i++) {
+            largeObj.array.push(element);
+        }
+
+        const refJson = JSON.stringify(largeObj);
+
+        const serializedBuf = bosSerializer.serialize(largeObj);
+        const deserialized = bosDeserializer.deserialize(serializedBuf);
+
+        const json = JSON.stringify(deserialized);
+
+        assert.strictEqual(refJson, json);
+    });
 
     describe('serialize function', function () {
 
