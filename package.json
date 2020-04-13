@@ -1,19 +1,31 @@
 {
-    "name": "bos",
-    "version": "1.1.1",
+    "name": "@mintpond/mint-bos",
+    "version": "2.0.0",
     "description": "Binary Object Serialization",
-    "keywords": [],
-    "license": "MIT",
     "author": "JCThePants",
-    "contributors": [
-        "JCThePants"
-    ],
+    "license": "MIT",
     "main": "index.js",
-    "dependencies": {},
-    "engines": {
-        "node": ">=10.16.3"
+    "dependencies": {
+        "@mintpond/mint-precon": "^1.0.0"
     },
     "devDependencies": {
         "mocha": "^5.2.0"
+    },
+    "scripts": {
+        "test": "mocha tests/mocha.*"
+    },
+    "homepage": "https://github.com/MintPond/mint-bos",
+    "bugs": {
+        "url": "https://github.com/MintPond/mint-bos/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/MintPond/mint-bos.git"
+    },
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com/"
+    },
+    "engines": {
+        "node": ">=10.16.3"
     }
 }
