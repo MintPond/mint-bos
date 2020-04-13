@@ -11,6 +11,8 @@ jobs:
         with:
           node-version: '10.x'
           registry-url: 'https://npm.pkg.github.com'
+      - run: npm config set @mintpond:registry https://npm.pkg.github.com/mintpond
+      - run: npm config set //npm.pkg.github.com/:_authToken ${{secrets.NPM_INSTALL_TOKEN}}
       - run: npm install
       - run: npm publish
         env:
