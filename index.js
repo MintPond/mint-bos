@@ -7,5 +7,6 @@ module.exports = {
     deserialize: deserializer.deserialize,
     validate: deserializer.validate,
     readSize: deserializer.readSize,
-    BosDeserializeBuffer: BosDeserializeBuffer
+    BosDeserializeBuffer: BosDeserializeBuffer,
+    DataType: require('./lib/const.DataType')
 };
