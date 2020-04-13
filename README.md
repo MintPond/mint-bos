@@ -1,8 +1,8 @@
-# BOS "Binary Object Serializer" #
+mint-bos
+========
 
-BOS is a lightweight NodeJS object serializer meant to allow transport
-of JSON type data in binary format. It allows transporting large
-binary data more efficiently.
+BOS (Binary Object Serializer) is a lightweight NodeJS object serializer meant to allow transport
+of JSON type data in binary format. It allows transporting large binary data more efficiently.
 
 This module has been developed and tested on 
 [Node v10.16.3](https://nodejs.org/) and 
@@ -11,16 +11,28 @@ This module has been developed and tested on
 ## Install ##
 __Install as Dependency in NodeJS Project__
 ```bash
+# Install from Github git package
+
 sudo apt-get install build-essential
-npm install git://github.com/MintPond/node-bos --save
+npm install mintpond/mint-bos --save
+```
+-or-
+```bash
+# Install from Github NPM repository
+
+sudo apt-get install build-essential
+npm config set @mintpond:registry https://npm.pkg.github.com/mintpond
+npm config set //npm.pkg.github.com/:_authToken <MY_GITHUB_AUTH_TOKEN>
+
+npm install @mintpond/mint-bos@2.0.0 --save
 ```
 
 ## Usage ##
 __Serializer__
 ```js
-const bos = require('bos');
+const bos = require('@mintpond/mint-bos');
 
-var obj = {
+const obj = {
     name: "object1",
     number: 1.3,
     bool: true,
@@ -34,15 +46,15 @@ var obj = {
     buffer: Buffer.alloc(4, 1)
 }
 
-var bufferData = bos.serialize(obj);
+const bufferData = bos.serialize(obj);
 ```
 
 __Deserializer__
 ```js
-const bos = require('bos');
+const bos = require('@mintpond/mint-bos');
 
 if (bos.validate(bufferData, 0)) {
-    var obj = bos.deserialize(bufferData, 0);
+    const obj = bos.deserialize(bufferData, 0);
 }
 
 ```
