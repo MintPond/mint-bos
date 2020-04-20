@@ -7,6 +7,7 @@ of JSON type data in binary format. It allows transporting large binary data mor
 This module has been developed and tested on 
 [Node v10.16.3](https://nodejs.org/) and 
 [Ubuntu 16.04](http://releases.ubuntu.com/16.04/)
+ for the [Zcoin mining pool](https://mintpond.com/#!/zcoin) at [MintPond](https://mintpond.com).
 
 ## Install ##
 __Install as Dependency in NodeJS Project__
@@ -65,9 +66,10 @@ if (bos.validate(bufferData, 0)) {
 
 Serializes an object (`obj`) and returns a _Buffer_ with serialized data.
 
-The object can be a string, number, boolean, object, array, null, or Buffer.
-An object may contain any of the mentioned data types as well as functions,
-however functions will not be serialized.
+The object can be a `string`, `number`, `boolean`, `object`, `array`, `null`, or `Buffer`.
+An object may contain any of the mentioned data types. Functions cannot be 
+serialized and will cause an error, however an object that contains a `toJSON` function 
+will be serialized according to the value returned from the `toJSON` function.
 
 Circular references in an object will cause an exception to be thrown.
 
